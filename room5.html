@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
+  <title>My A-Frame Scene</title>
+    
+  <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script> 
+  <script src="https://unpkg.com/aframe-room-component/dist/aframe-room-component.min.js"></script> 
+  <script>
+AFRAME.registerComponent('play-pause',{
+    init: function(){
+    var myvideo=document.querySelector('#video');
+    var videoControls=document.querySelector('#videoControls');
+    this.el.addEventListener('click',function(){
+        if(myvideo.paused){
+            myvideo.play();
+            videoControls.setAttribute('src','#pause');
+        }
+        else{
+            myvideo.pause();
+            videoControls.setAttribute('src','#play');
+        }
+    });
+    }
+});
+
+
+</script>
+</head>
+ 
+<body>
+    <a-scene>
+      <a-assets>
+        <img id="floor" src="https://cdn.glitch.com/cf2a8cb8-6e05-4433-812a-5cfca8c74467%2Ftiles.jpg?v=1604133526182">
+      <!--   added textures -->
+         <img crossorigin="anonymous" id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg">
+       <img crossorigin="anonymous" id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg">
+       <img id="play" src="https://cdn.glitch.com/d8347771-677b-419e-ae51-8aab08e7794b%2Fplay.png?v=1604122004528">
+        <img id="pause" src="https://cdn.glitch.com/d8347771-677b-419e-ae51-8aab08e7794b%2Fpause.png?v=1604122008185">
+        <video id="video" loop="false" src="https://cdn.glitch.com/d8347771-677b-419e-ae51-8aab08e7794b%2FVideo.mp4?v=1604121772168" webkit-playsinline></video>
+      </a-assets>
+       <a-sky height="2048" radius="100" src="#skyTexture" theta-length="90" width="2048" segments-height="5" segments-width="8"></a-sky>
+      <a-plane src="#groundTexture" rotation="-90 0 0" position="0 -0.01 0" height="500" width="500"></a-plane>
+     <a-plane color= "#FFFFFF"
+             src= "#floor"
+             repeat="20 20"
+             position="8 0 5"
+             rotation="-90 0 0"
+             scale="20 20 1">
+    </a-plane>
+
+   <!--Ceiling-->
+    <a-plane color= "#FFFFFF"                   
+             side="double"
+             repeat="20 20"
+             position="8 3 5"
+             rotation="-90 0 0"
+             scale="20 20 1">
+    </a-plane>
+        <rw-room position="-2 0 -5" material="color:#edbe8e;side:double" >
+          
+            <rw-wall height="3" side="double" position="20 0 0" >
+              <a-plane scale="1 1 1" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="14 1 0.01">
+               
+              </a-plane></rw-wall>
+            <rw-wall height="3" position="20 0 20" >
+              <rw-doorhole id="holeA"></rw-doorhole>
+              <rw-doorlink from="#holeA" to="#holeA" position="10 0 0"></rw-doorlink>
+            </rw-wall>
+            <rw-wall height="3" position="0 0 20" >
+               
+            </rw-wall>
+            <rw-wall height="3" position="0 0 0" >
+              <!--Adding partition planes-->
+              <a-plane scale="4 4 1" color="#17202a" side="double" position="2 0 3.5" > 
+                <a-image scale="0.5 0.25 0.5" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="0 0.25 0.01">
+              </a-image></a-plane>
+              <a-plane scale="4 4  1" color="#17202a" side="double" position="18 0 3.5" > 
+              <a-image scale="0.5 0.25 0.5" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="0 0.25 0.01">
+               
+              </a-image></a-plane>
+              <a-plane scale="4 4 1" color="#17202a" side="double" position="2 0 8" >
+              <a-image scale="0.5 0.25 0.5" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="0 0.25 0.01">
+               
+              </a-image> </a-plane>
+              <a-plane scale="4 4 1" color="#17202a" side="double" position="18 0 8" > 
+              <a-image scale="0.5 0.25 0.5" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="0 0.25 0.01">
+               
+              </a-image></a-plane>
+              <a-plane scale="4 4 1" color="#17202a" side="double" position="2 0 13" >
+              <a-image scale="0.5 0.25 0.5" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="0 0.25 0.01">
+               
+              </a-image> </a-plane>
+              <a-plane scale="4 4 100" color="#17202a" side="double" position="18 0 13"  repeat="5 5"> 
+               <a-video src="#video" width="0.7" height="0.3" position="0 0.25 0.0001">
+             <a-image id="videoControls" src="#play" position="0 -0.18 0.0001" scale="0.05 0.04 0.05" play-pause>
+
+             </a-image>
+          </a-video>
+            </a-plane>
+            </rw-wall>
+        </rw-room>
+    <a-entity position="8 0 20">
+      <a-camera user-height="1.6"><a-cursor></a-cursor></a-camera>
+    </a-entity>
+    </a-scene>
+</body>
+</html>
