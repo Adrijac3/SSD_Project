@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,6 +9,23 @@
   <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script> 
   <script src="https://unpkg.com/aframe-room-component/dist/aframe-room-component.min.js"></script> 
   <script>
+    
+ let rooms ={
+  room1: [
+    { name:"poster1", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ { name:"poster2", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ { name:"poster3", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ { name:"poster4", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+    
+    
+    
+   
+  ]
+ }
+   let x=2;
+    let s=rooms["room1"].length
+    let room_size=(s/2 +1)*x;
+    
 AFRAME.registerComponent('play-pause',{
     init: function(){
     var myvideo=document.querySelector('#video');
@@ -23,7 +41,33 @@ AFRAME.registerComponent('play-pause',{
         }
     });
     }
+  
+  
 });
+    AFRAME.registerComponent('log', {
+  
+
+
+  init: function () {
+    var wall4=document.querySelector("#wall4");
+   let json = require('posters.json');
+console.log(json, 'the json obj');
+     var node = document.createElement("a-plane");                 
+    node.setAttribute("scale", "4 4 1"); 
+    node.setAttribute("color", "blue"); 
+    node.setAttribute("side", "double"); 
+    node.setAttribute("position", "2 0 15"); 
+    wall4.appendChild(node);//
+    var arraynew=wall4.childNodes;
+    //arraynew.push(<img id="floor" src="https://cdn.glitch.com/cf2a8cb8-6e05-4433-812a-5cfca8c74467%2Ftiles.jpg?v=1604133526182">);
+    console.log(arraynew);
+//     console.log(arraynew.filter(a=>{
+//       a.nodetype === 1;
+//     }));
+    
+  }
+    });
+
 
 
 </script>
@@ -45,65 +89,75 @@ AFRAME.registerComponent('play-pause',{
      <a-plane color= "#FFFFFF"
              src= "#floor"
              repeat="20 20"
-             position="8 0 5"
+             position="7.5 0 20 "
              rotation="-90 0 0"
-             scale="20 20 1">
+             scale="15 40 1">
     </a-plane>
+
 
    <!--Ceiling-->
     <a-plane color= "#FFFFFF"                   
              side="double"
              repeat="20 20"
-             position="8 3 5"
+             position="7.5 3 20"
              rotation="-90 0 0"
-             scale="20 20 1">
+             scale="15 40 1">
     </a-plane>
-        <rw-room position="-2 0 -5" material="color:#edbe8e;side:double" >
+        <rw-room position="0 0 0" material="color:#edbe8e;side:double" >
           
-            <rw-wall height="3" side="double" position="20 0 0" >
-              <a-plane scale="1 1 1" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="14 1 0.01">
+            <rw-wall height="3" side="double" position="15 0 0" >
+<!--               <a-plane scale="1 1 1" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="14 1 0.01">
                
-              </a-plane></rw-wall>
-            <rw-wall height="3" position="20 0 20" >
+              </a-plane> -->
+          </rw-wall>
+            <rw-wall height="3" position="15 0 40" >
               <rw-doorhole id="holeA"></rw-doorhole>
               <rw-doorlink from="#holeA" to="#holeA" position="10 0 0"></rw-doorlink>
             </rw-wall>
-            <rw-wall height="3" position="0 0 20" >
+            <rw-wall height="3" position="0 0 40" >
                
             </rw-wall>
-            <rw-wall height="3" position="0 0 0" >
+            <rw-wall height="3" position="0 0 0" id ="wall4" log="hiiii i am wall 4">
               <!--Adding partition planes-->
-              <a-plane scale="4 4 1" color="#17202a" side="double" position="2 0 3.5" > 
+              <a-plane scale="4 4 1" color="#17202a" side="double" position="2 0 3.5" class="wall4-plane"> 
                 <a-image scale="0.5 0.25 0.5" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="0 0.25 0.01">
               </a-image></a-plane>
-              <a-plane scale="4 4  1" color="#17202a" side="double" position="18 0 3.5" > 
+              <a-plane scale="4 4  1" color="#17202a" side="double" position="13 0 3.5" class="wall4-plane">> 
               <a-image scale="0.5 0.25 0.5" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="0 0.25 0.01">
                
               </a-image></a-plane>
-              <a-plane scale="4 4 1" color="#17202a" side="double" position="2 0 8" >
+              <a-plane scale="4 4 1" color="#17202a" side="double" position="2 0 8" class="wall4-plane">>
               <a-image scale="0.5 0.25 0.5" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="0 0.25 0.01">
                
               </a-image> </a-plane>
-              <a-plane scale="4 4 1" color="#17202a" side="double" position="18 0 8" > 
+              <a-plane scale="4 4 1" color="#17202a" side="double" position="13 0 8" class="wall4-plane">> 
               <a-image scale="0.5 0.25 0.5" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="0 0.25 0.01">
                
               </a-image></a-plane>
-              <a-plane scale="4 4 1" color="#17202a" side="double" position="2 0 13" >
+              <a-plane scale="4 4 1" color="#17202a" side="double" position="2 0 13" class="wall4-plane">>
               <a-image scale="0.5 0.25 0.5" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="0 0.25 0.01">
                
               </a-image> </a-plane>
-              <a-plane scale="4 4 100" color="#17202a" side="double" position="18 0 13"  repeat="5 5"> 
+              <a-plane scale="4 4 100" color="#17202a" side="double" position="13 0 13"  repeat="5 5" class="wall4-plane">> 
                <a-video src="#video" width="0.7" height="0.3" position="0 0.25 0.0001">
              <a-image id="videoControls" src="#play" position="0 -0.18 0.0001" scale="0.05 0.04 0.05" play-pause>
+
 
              </a-image>
           </a-video>
             </a-plane>
             </rw-wall>
         </rw-room>
-    <a-entity position="8 0 20">
+    <a-entity position="3 0 45">
       <a-camera user-height="1.6"><a-cursor></a-cursor></a-camera>
     </a-entity>
     </a-scene>
 </body>
 </html>
+ 
+
+
+
+
+
+

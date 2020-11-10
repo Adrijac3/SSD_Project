@@ -26,26 +26,67 @@ AFRAME.registerComponent('play-pause',{
   
   
 });
+
+ let rooms ={
+  room1: [
+    { name:"poster1", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ { name:"poster2", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ { name:"poster3", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ { name:"poster4", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+    { name:"poster5", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ { name:"poster6", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ { name:"poster7", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ { name:"poster8", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+    
+    
+    
+    
+   
+  ]
+ }
+   let x=3;
+    let s=rooms["room1"].length
+    let room_size=(s/2 +1)*x;
+
+
     AFRAME.registerComponent('log', {
   
 
  
 
   init: function () {    
+
+
     var right_wall=document.querySelector("#wall1");
-    right_wall.setAttribute("position","15 0 0");
+    right_wall.setAttribute("position",`15 0 0`);
     
     var entry_wall=document.querySelector("#wall2");
-    entry_wall.setAttribute("position","15 0 40");
+    entry_wall.setAttribute("position",`15 0 ${room_size}`);
     
     var left_wall=document.querySelector("#wall3");
-    left_wall.setAttribute("position","0 0 40");
+    left_wall.setAttribute("position",`0 0 ${room_size}`);
+
+
     
     var back_wall=document.querySelector("#wall4");
     back_wall.setAttribute("position","0 0 0");
     
     var ceiling=document.querySelector("#ceiling");
     ceiling.setAttribute("position","7.5 3 20");
+
+    ceiling.setAttribute("scale", `15 ${room_size/2} 1`);
+    
+    var ground=document.querySelector("#ground");
+    ground.setAttribute("position", `7.5 0 ${room_size/2}`);
+    ground.setAttribute("scale", `15 ${room_size} 1`);
+
+      var cam=document.querySelector("#camera");
+    cam.setAttribute("position", `7.5 0 ${room_size+5}`);
+   
+    
+    for(let i=1 ;i<=room_size;i++){
+      var node = document.createElement("a-plane");                 
+
     ceiling.setAttribute("scale", "15 40 1");
     
     var ground=document.querySelector("#ground");
@@ -55,12 +96,19 @@ AFRAME.registerComponent('play-pause',{
     
     //var wall4=document.querySelector("#wall4");
     var node = document.createElement("a-plane");                 
+
     node.setAttribute("scale", "4 4 1"); 
     node.setAttribute("color", "blue"); 
     node.setAttribute("side", "double"); 
     node.setAttribute("position", "2 0 15"); 
+
+    var node2 = document.createElement("a-image");  
+
     back_wall.appendChild(node);//
     var arraynew=back_wall.childNodes;
+    }
+    //var wall4=document.querySelector("#wall4");
+
     //arraynew.push(<img id="floor" src="https://cdn.glitch.com/cf2a8cb8-6e05-4433-812a-5cfca8c74467%2Ftiles.jpg?v=1604133526182">);
     console.log(arraynew);
 //     console.log(arraynew.filter(a=>{
@@ -152,7 +200,9 @@ AFRAME.registerComponent('play-pause',{
             </a-plane>
             </rw-wall>
         </rw-room>
-    <a-entity position="3 0 45">
+
+    <a-entity id ="camera" position="3 0 45">
+
       <a-camera user-height="1.6"><a-cursor></a-cursor></a-camera>
     </a-entity>
     </a-scene>
