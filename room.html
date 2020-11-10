@@ -29,14 +29,15 @@ AFRAME.registerComponent('play-pause',{
 
  let rooms ={
   room1: [
-    { name:"poster1", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
- { name:"poster2", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
- { name:"poster3", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
- { name:"poster4", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
-    { name:"poster5", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
- { name:"poster6", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
- { name:"poster7", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
- { name:"poster8", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+    { id: 1,name:"poster1", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ {id: 2, name:"poster2", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ {id: 3, name:"poster3", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ {id: 4, name:"poster4", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+  {id: 5, name:"poster5", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ {id: 6, name:"poster6", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ {id: 7, name:"poster7", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ {id: 8, name:"poster7", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ 
     
     
     
@@ -45,9 +46,19 @@ AFRAME.registerComponent('play-pause',{
   ]
  }
    let x=3;
-    let s=rooms["room1"].length
+    let s=rooms["room1"].length;
     let room_size=(s/2 +1)*x;
+     let A=15;
+   let B=4;
+  let left_side=rooms["room1"].filter((e)=>e.id%2==1);
+   let right_side=rooms["room1"].filter((e)=>e.id%2==0);
+  
 
+   //  function removeAllChildNodes(parent) {
+   //  while (parent.firstChild) {
+   //      parent.removeChild(parent.firstChild);
+   //  }
+   // }
 
     AFRAME.registerComponent('log', {
   
@@ -55,7 +66,7 @@ AFRAME.registerComponent('play-pause',{
  
 
   init: function () {    
-
+  
 
     var right_wall=document.querySelector("#wall1");
     right_wall.setAttribute("position",`15 0 0`);
@@ -71,10 +82,6 @@ AFRAME.registerComponent('play-pause',{
     var back_wall=document.querySelector("#wall4");
     back_wall.setAttribute("position","0 0 0");
     
-    var ceiling=document.querySelector("#ceiling");
-    ceiling.setAttribute("position","7.5 3 20");
-
-    ceiling.setAttribute("scale", `15 ${room_size/2} 1`);
     
     var ground=document.querySelector("#ground");
     ground.setAttribute("position", `7.5 0 ${room_size/2}`);
@@ -83,38 +90,61 @@ AFRAME.registerComponent('play-pause',{
       var cam=document.querySelector("#camera");
     cam.setAttribute("position", `7.5 0 ${room_size+5}`);
    
+                   
+    var ceiling=document.querySelector("#ceiling");
+    ceiling.setAttribute("position", `7.5 3 ${room_size/2}`)
+    ceiling.setAttribute("scale", `15 ${room_size} 1`);
+
     
-    for(let i=1 ;i<=room_size;i++){
+    
+ 
+ 
+   
+
+    for(let i=0 ;i<left_side.length;i++){
+      
+      let pos=`${(4/2)} 0 ${(i+1)*x}`;
+
       var node = document.createElement("a-plane");                 
-
-    ceiling.setAttribute("scale", "15 40 1");
-    
-    var ground=document.querySelector("#ground");
-    ground.setAttribute("position", "7.5 0 20");
-    ground.setAttribute("scale", "15 40 1");
-    
-    
-    //var wall4=document.querySelector("#wall4");
-    var node = document.createElement("a-plane");                 
-
+      console.log(pos);
     node.setAttribute("scale", "4 4 1"); 
     node.setAttribute("color", "blue"); 
     node.setAttribute("side", "double"); 
-    node.setAttribute("position", "2 0 15"); 
+    node.setAttribute("position",`${pos}`); 
 
-    var node2 = document.createElement("a-image");  
-
-    back_wall.appendChild(node);//
-    var arraynew=back_wall.childNodes;
+    var img_node= document.createElement("a-image"); 
+     img_node.setAttribute("scale", "0.5 0.25 0.5"); 
+    img_node.setAttribute("color", "black"); 
+    img_node.setAttribute("side", "double"); 
+    img_node.setAttribute("position", `0 0.25 0.01`); 
+    img_node.setAttribute("src", `${left_side[i].src}`);
+    node.appendChild(img_node);
+      back_wall.appendChild(node);
     }
-    //var wall4=document.querySelector("#wall4");
+   for(let i=0 ;i<right_side.length;i++){
+      
+      let pos=`${15-(4/2)} 0 ${(i+1)*x}`;
 
-    //arraynew.push(<img id="floor" src="https://cdn.glitch.com/cf2a8cb8-6e05-4433-812a-5cfca8c74467%2Ftiles.jpg?v=1604133526182">);
-    console.log(arraynew);
-//     console.log(arraynew.filter(a=>{
-//       a.nodetype === 1;
-//     }));
-    
+      var node = document.createElement("a-plane");                 
+      console.log(pos);
+    node.setAttribute("scale", "4 4 1"); 
+    node.setAttribute("color", "blue"); 
+    node.setAttribute("side", "double"); 
+    node.setAttribute("position",`${pos}`); 
+
+    var img_node= document.createElement("a-image"); 
+     img_node.setAttribute("scale", "0.5 0.25 0.5"); 
+    img_node.setAttribute("color", "black"); 
+    img_node.setAttribute("side", "double"); 
+    img_node.setAttribute("position", `0 0.25 0.01`); 
+    img_node.setAttribute("src", `${right_side[i].src}`);
+    node.appendChild(img_node);
+      back_wall.appendChild(node);
+    }
+    console.log(back_wall);
+      
+
+
   }
 });
 
@@ -170,7 +200,7 @@ AFRAME.registerComponent('play-pause',{
             </rw-wall>
             <rw-wall height="3" side="double" id ="wall4" log="hiiii i am wall 4">
               <!--Adding partition planes-->
-              <a-plane scale="4 4 1" color="#17202a" side="double" position="2 0 3.5" class="wall4-plane"> 
+              <!-- <a-plane scale="4 4 1" color="#17202a" side="double" position="2 0 3.5" class="wall4-plane"> 
                 <a-image scale="0.5 0.25 0.5" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="0 0.25 0.01">
               </a-image></a-plane>
               <a-plane scale="4 4  1" color="#17202a" side="double" position="13 0 3.5" class="wall4-plane">> 
@@ -191,13 +221,13 @@ AFRAME.registerComponent('play-pause',{
               </a-image> </a-plane>
               <a-plane scale="4 4 100" color="#17202a" side="double" position="13 0 13"  repeat="5 5" class="wall4-plane">> 
                <a-video src="#video" width="0.7" height="0.3" position="0 0.25 0.0001">
-             <a-image id="videoControls" src="#play" position="0 -0.18 0.0001" scale="0.05 0.04 0.05" play-pause>
+             <a-image id="videoControls" src="#play" position="0 -0.18 0.0001" scale="0.05 0.04 0.05" play-pause> -->
 
  
 
-             </a-image>
+           <!--   </a-image>
           </a-video>
-            </a-plane>
+            </a-plane> -->
             </rw-wall>
         </rw-room>
 
