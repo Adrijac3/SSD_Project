@@ -37,28 +37,43 @@ AFRAME.registerComponent('play-pause',{
  {id: 6, name:"poster6", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
  {id: 7, name:"poster7", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
  {id: 8, name:"poster7", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
- 
-    
-    
-    
-    
    
-  ]
+   
+  ],
+  room2: [
+    { id: 1,name:"poster1", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ {id: 2, name:"poster2", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ {id: 3, name:"poster3", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ {id: 4, name:"poster4", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+  {id: 5, name:"poster5", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ {id: 6, name:"poster6", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ {id: 7, name:"poster7", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ {id: 8, name:"poster7", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ { id: 9,name:"poster1", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ {id: 10, name:"poster2", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ {id: 11, name:"poster3", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ {id: 12, name:"poster4", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+  {id: 13, name:"poster5", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ {id: 14, name:"poster6", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ {id: 15, name:"poster7", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ {id: 16, name:"poster7", link:"https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg", type:"image"},
+ 
+   
+  ],
  }
    let x=3;
-    let s=rooms["room1"].length;
-    let room_size=(s/2 +1)*x;
+    let  s=rooms["room1"].length;
+    let  room_size=(s/2 +1)*x;
      let A=15;
    let B=4;
-  let left_side=rooms["room1"].filter((e)=>e.id%2==1);
+    let left_side=rooms["room1"].filter((e)=>e.id%2==1);
    let right_side=rooms["room1"].filter((e)=>e.id%2==0);
-  
 
-   //  function removeAllChildNodes(parent) {
-   //  while (parent.firstChild) {
-   //      parent.removeChild(parent.firstChild);
-   //  }
-   // }
+    function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+   }
 
     AFRAME.registerComponent('log', {
   
@@ -66,8 +81,6 @@ AFRAME.registerComponent('play-pause',{
  
 
   init: function () {    
-  
-
     var right_wall=document.querySelector("#wall1");
     right_wall.setAttribute("position",`15 0 0`);
     
@@ -116,7 +129,7 @@ AFRAME.registerComponent('play-pause',{
      img_node.setAttribute("scale", "0.5 0.25 0.5"); 
     img_node.setAttribute("color", "black"); 
     img_node.setAttribute("side", "double"); 
-    img_node.setAttribute("position", `0 0.25 0.01`); 
+    img_node.setAttribute("position", `0 0.25 -0.01`); 
     img_node.setAttribute("src", `${left_side[i].src}`);
     node.appendChild(img_node);
       back_wall.appendChild(node);
@@ -126,7 +139,7 @@ AFRAME.registerComponent('play-pause',{
       let pos=`${15-(4/2)} 0 ${(i+1)*x}`;
 
       var node = document.createElement("a-plane");                 
-      console.log(pos);
+    
     node.setAttribute("scale", "4 4 1"); 
     node.setAttribute("color", "blue"); 
     node.setAttribute("side", "double"); 
@@ -142,6 +155,155 @@ AFRAME.registerComponent('play-pause',{
       back_wall.appendChild(node);
     }
     console.log(back_wall);
+  
+   
+           document.addEventListener('keydown', (event) => {
+             console.log(`key=${event.key},code=${event.code}`);
+            if(event.key==1){
+              s=rooms["room1"].length;
+             room_size=(s/2 +1)*x;
+              left_side=rooms["room1"].filter((e)=>e.id%2==1);
+              right_side=rooms["room1"].filter((e)=>e.id%2==0);
+             
+    
+    
+   
+    entry_wall.setAttribute("position",`15 0 ${room_size}`);
+    
+    
+    left_wall.setAttribute("position",`0 0 ${room_size}`);
+
+    ground.setAttribute("position", `7.5 0 ${room_size/2}`);
+    ground.setAttribute("scale", `15 ${room_size} 1`);
+
+    cam.setAttribute("position", `7.5 0 ${room_size+5}`);
+   
+                
+    ceiling.setAttribute("position", `7.5 3 ${room_size/2}`)
+    ceiling.setAttribute("scale", `15 ${room_size} 1`);
+
+    
+    
+ 
+  removeAllChildNodes(back_wall);
+   
+
+    for(let i=0 ;i<left_side.length;i++){
+      
+      let pos=`${(4/2)} 0 ${(i+1)*x}`;
+
+      var node = document.createElement("a-plane");                 
+      console.log(pos);
+    node.setAttribute("scale", "4 4 1"); 
+    node.setAttribute("color", "blue"); 
+    node.setAttribute("side", "double"); 
+    node.setAttribute("position",`${pos}`); 
+
+    var img_node= document.createElement("a-image"); 
+     img_node.setAttribute("scale", "0.5 0.25 0.5"); 
+    img_node.setAttribute("color", "black"); 
+    img_node.setAttribute("side", "double"); 
+    img_node.setAttribute("position", `0 0.25 0.01`); 
+    img_node.setAttribute("src", `${left_side[i].src}`);
+    node.appendChild(img_node);
+      back_wall.appendChild(node);
+    }
+   for(let i=0 ;i<right_side.length;i++){
+      
+      let pos=`${15-(4/2)} 0 ${(i+1)*x}`;
+
+      var node = document.createElement("a-plane");                 
+    
+    node.setAttribute("scale", "4 4 1"); 
+    node.setAttribute("color", "blue"); 
+    node.setAttribute("side", "double"); 
+    node.setAttribute("position",`${pos}`); 
+
+    var img_node= document.createElement("a-image"); 
+     img_node.setAttribute("scale", "0.5 0.25 0.5"); 
+    img_node.setAttribute("color", "black"); 
+    img_node.setAttribute("side", "double"); 
+    img_node.setAttribute("position", `0 0.25 0.01`); 
+    img_node.setAttribute("src", `${right_side[i].src}`);
+    node.appendChild(img_node);
+      back_wall.appendChild(node);
+    }
+    console.log(back_wall);
+            }else if(event.key==2){
+              s=rooms["room2"].length;
+              room_size=(s/2 +1)*x;
+              left_side=rooms["room2"].filter((e)=>e.id%2==1);
+              right_side=rooms["room2"].filter((e)=>e.id%2==0);
+               
+   
+    entry_wall.setAttribute("position",`15 0 ${room_size}`);
+    
+    
+    left_wall.setAttribute("position",`0 0 ${room_size}`);
+
+    ground.setAttribute("position", `7.5 0 ${room_size/2}`);
+    ground.setAttribute("scale", `15 ${room_size} 1`);
+
+    cam.setAttribute("position", `7.5 0 ${room_size+5}`);
+   
+                
+    ceiling.setAttribute("position", `7.5 3 ${room_size/2}`)
+    ceiling.setAttribute("scale", `15 ${room_size} 1`);
+
+    
+    
+ 
+  removeAllChildNodes(back_wall);
+   
+
+    for(let i=0 ;i<left_side.length;i++){
+      
+      let pos=`${(4/2)} 0 ${(i+1)*x}`;
+
+      var node = document.createElement("a-plane");                 
+      console.log(pos);
+    node.setAttribute("scale", "4 4 1"); 
+    node.setAttribute("color", "blue"); 
+    node.setAttribute("side", "double"); 
+    node.setAttribute("position",`${pos}`); 
+
+    var img_node= document.createElement("a-image"); 
+     img_node.setAttribute("scale", "0.5 0.25 0.5"); 
+    img_node.setAttribute("color", "black"); 
+    img_node.setAttribute("side", "double"); 
+    img_node.setAttribute("position", `0 0.25 0.01`); 
+    img_node.setAttribute("src", `${left_side[i].src}`);
+    node.appendChild(img_node);
+      back_wall.appendChild(node);
+    }
+   for(let i=0 ;i<right_side.length;i++){
+      
+      let pos=`${15-(4/2)} 0 ${(i+1)*x}`;
+
+      var node = document.createElement("a-plane");                 
+    
+    node.setAttribute("scale", "4 4 1"); 
+    node.setAttribute("color", "blue"); 
+    node.setAttribute("side", "double"); 
+    node.setAttribute("position",`${pos}`); 
+
+    var img_node= document.createElement("a-image"); 
+     img_node.setAttribute("scale", "0.5 0.25 0.5"); 
+    img_node.setAttribute("color", "black"); 
+    img_node.setAttribute("side", "double"); 
+    img_node.setAttribute("position", `0 0.25 0.01`); 
+    img_node.setAttribute("src", `${right_side[i].src}`);
+    node.appendChild(img_node);
+      back_wall.appendChild(node);
+    }
+    console.log(back_wall);
+
+            }
+           
+
+        });
+
+    
       
 
 
@@ -182,7 +344,7 @@ AFRAME.registerComponent('play-pause',{
              repeat="20 20"
              rotation="-90 0 0" id="ceiling">
     </a-plane>
-        <rw-room position="0 0 0" material="color:#edbe8e;side:double" >
+        <rw-room position="0 0 0" material="color:#edbe8e;side:double" id ="room-whole">
             <!--right wall-->
             <rw-wall height="3" side="double" id="wall1">
 <!--               <a-plane scale="1 1 1" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="14 1 0.01">
