@@ -63,8 +63,9 @@ AFRAME.registerComponent('play-pause',{
  }
   let wall_gap=3;                               //distance between two walls
   let  s=rooms["room1"].length;        //number of posters
-  let  room_size=(s/2 +1)*wall_gap          //starting pos of wall coordinate   
-  let A=15
+  let  room_size=(s/2 +1)*wall_gap       // length of room   
+  var base_size=room_size;
+  let A=15                           // starting pos of wall coordinate
   let B=4;                          //room width
     
   //removes all posters that were added as children of back_wall  
@@ -75,12 +76,15 @@ AFRAME.registerComponent('play-pause',{
    }
     
     //sets room dimensions
-    function setRoomDim() {
+    function setRoomDim(room_size) {
+    var scalefactor=room_size/base_size;
     w1=document.querySelector("#wall1");
     w1.setAttribute("position",`${A} 0 0`);
+    w1.setAttribute("scale",`${scalefactor} 1 1`);
     w2=document.querySelector("#wall2");
     w2.setAttribute("position",`${A} 0 ${room_size}`);
     w3=document.querySelector("#wall3");
+    w3.setAttribute("scale",`${scalefactor} 1 1`);
     w3.setAttribute("position",`0 0 ${room_size}`);
     w4=document.querySelector("#wall4");
     w4.setAttribute("position","0 0 0");
@@ -106,25 +110,26 @@ AFRAME.registerComponent('play-pause',{
     {
       var C
       if(f==0)             //f==0 indicates left side
-          C=`${(B/2)}`
+          C=B/2;
       else                 //f==1 indicates right side
-          C=`${A-(B/2)}`
+          C=A-(B/2);
       
-      for(let i=0 ;i<side.length;i++){
+      for(let i=0; i<side.length; i++){
       
          let pos=`${C} 0 ${(i+1)*wall_gap}`;
-
+      //create plartitions
       var node = document.createElement("a-plane");                 
       console.log(pos);
     node.setAttribute("scale", "4 4 1"); 
     node.setAttribute("color", "blue"); 
     node.setAttribute("side", "double"); 
-    node.setAttribute("position",`${pos}`); 
+    node.setAttribute("position",`${pos}`);
+    //put posters on them
      var img_node= document.createElement("a-image"); 
      img_node.setAttribute("scale", "0.5 0.25 0.5"); 
     img_node.setAttribute("color", "black"); 
     img_node.setAttribute("side", "double"); 
-    img_node.setAttribute("position", `0 0.25 -0.01`); 
+    img_node.setAttribute("position", `0 0.25 0.01`); 
     img_node.setAttribute("src", `${side[i].src}`);
     node.appendChild(img_node);
       back_wall.appendChild(node);
@@ -137,7 +142,7 @@ AFRAME.registerComponent('play-pause',{
     
     init: function () { 
       
-    setRoomDim();
+    setRoomDim(room_size);
     //get attributes
     var right_wall=document.querySelector("#wall1");    
     var entry_wall=document.querySelector("#wall2");
@@ -148,161 +153,51 @@ AFRAME.registerComponent('play-pause',{
     var ceiling=document.querySelector("#ceiling");
     //get obj
     dividePosters("room1");
+  
     createPostersOnPartition(left_side,back_wall,0);
     createPostersOnPartition(right_side,back_wall,1);
-    //console.log(back_wall);
-  
-   
-           document.addEventListener('keydown', (event) => {
-             console.log(`key=${event.key},code=${event.code}`);
-            if(event.key==1){
-              s=rooms["room1"].length;
-             room_size=(s/2 +1)*wall_gap;
-              left_side=rooms["room1"].filter((e)=>e.id%2==1);
-              right_side=rooms["room1"].filter((e)=>e.id%2==0);
-             
-    
-    
-   
-    entry_wall.setAttribute("position",`15 0 ${room_size}`);
-    
-    
-    left_wall.setAttribute("position",`0 0 ${room_size}`);
-
-    ground.setAttribute("position", `7.5 0 ${room_size/2}`);
-    ground.setAttribute("scale", `15 ${room_size} 1`);
-
-    cam.setAttribute("position", `7.5 0 ${room_size+5}`);
-   
-                
-    ceiling.setAttribute("position", `7.5 3 ${room_size/2}`)
-    ceiling.setAttribute("scale", `15 ${room_size} 1`);
-
-    
-    
- 
-  removeAllChildNodes(back_wall);
-   
-
-    for(let i=0 ;i<left_side.length;i++){
+    //console.log(back_wall);  
       
-      let pos=`${(4/2)} 0 ${(i+1)*wall_gap}`;
-
-      var node = document.createElement("a-plane");                 
-      console.log(pos);
-    node.setAttribute("scale", "4 4 1"); 
-    node.setAttribute("color", "blue"); 
-    node.setAttribute("side", "double"); 
-    node.setAttribute("position",`${pos}`); 
-
-    var img_node= document.createElement("a-image"); 
-     img_node.setAttribute("scale", "0.5 0.25 0.5"); 
-    img_node.setAttribute("color", "black"); 
-    img_node.setAttribute("side", "double"); 
-    img_node.setAttribute("position", `0 0.25 0.01`); 
-    img_node.setAttribute("src", `${left_side[i].src}`);
-    node.appendChild(img_node);
-      back_wall.appendChild(node);
+    document.addEventListener('keydown', (event) => {
+      console.log(`key=${event.key},code=${event.code}`);
+      if(event.key==1)
+      {
+        s=rooms["room1"].length;
+        room_size=(s/2 +1)*wall_gap;
+        setRoomDim(room_size);
+    //get attributes
+    var right_wall=document.querySelector("#wall1");    
+    var entry_wall=document.querySelector("#wall2");
+    var left_wall=document.querySelector("#wall3");
+    var back_wall=document.querySelector("#wall4");
+    var ground=document.querySelector("#ground");
+    var cam=document.querySelector("#camera");           
+    var ceiling=document.querySelector("#ceiling");
+    removeAllChildNodes(back_wall);
+    //get obj
+    dividePosters("room1");
+    createPostersOnPartition(left_side,back_wall,0);
+    createPostersOnPartition(right_side,back_wall,1);
     }
-   for(let i=0 ;i<right_side.length;i++){
-      
-      let pos=`${15-(4/2)} 0 ${(i+1)*wall_gap}`;
-
-      var node = document.createElement("a-plane");                 
-    
-    node.setAttribute("scale", "4 4 1"); 
-    node.setAttribute("color", "blue"); 
-    node.setAttribute("side", "double"); 
-    node.setAttribute("position",`${pos}`); 
-
-    var img_node= document.createElement("a-image"); 
-     img_node.setAttribute("scale", "0.5 0.25 0.5"); 
-    img_node.setAttribute("color", "black"); 
-    img_node.setAttribute("side", "double"); 
-    img_node.setAttribute("position", `0 0.25 0.01`); 
-    img_node.setAttribute("src", `${right_side[i].src}`);
-    node.appendChild(img_node);
-      back_wall.appendChild(node);
+    else if(event.key==2)
+    {
+        s=rooms["room2"].length;
+        room_size=(s/2 +1)*wall_gap;
+        setRoomDim(room_size);  
+    var right_wall=document.querySelector("#wall1");    
+    var entry_wall=document.querySelector("#wall2");
+    var left_wall=document.querySelector("#wall3");
+    var back_wall=document.querySelector("#wall4");
+    var ground=document.querySelector("#ground");
+    var cam=document.querySelector("#camera");           
+    var ceiling=document.querySelector("#ceiling");
+    removeAllChildNodes(back_wall);
+    //get obj
+    dividePosters("room2");
+    createPostersOnPartition(left_side,back_wall,0);
+    createPostersOnPartition(right_side,back_wall,1);   
     }
-    console.log(back_wall);
-            }else if(event.key==2){
-              s=rooms["room2"].length;
-              room_size=(s/2 +1)*wall_gap;
-              left_side=rooms["room2"].filter((e)=>e.id%2==1);
-              right_side=rooms["room2"].filter((e)=>e.id%2==0);
-               
-   
-    entry_wall.setAttribute("position",`15 0 ${room_size}`);
-    
-    
-    left_wall.setAttribute("position",`0 0 ${room_size}`);
-
-    ground.setAttribute("position", `7.5 0 ${room_size/2}`);
-    ground.setAttribute("scale", `15 ${room_size} 1`);
-
-    cam.setAttribute("position", `7.5 0 ${room_size+5}`);
-   
-                
-    ceiling.setAttribute("position", `7.5 3 ${room_size/2}`)
-    ceiling.setAttribute("scale", `15 ${room_size} 1`);
-
-    
-    
- 
-  removeAllChildNodes(back_wall);
-   
-
-    for(let i=0 ;i<left_side.length;i++){
-      
-      let pos=`${(4/2)} 0 ${(i+1)*wall_gap}`;
-
-      var node = document.createElement("a-plane");                 
-      console.log(pos);
-    node.setAttribute("scale", "4 4 1"); 
-    node.setAttribute("color", "blue"); 
-    node.setAttribute("side", "double"); 
-    node.setAttribute("position",`${pos}`); 
-
-    var img_node= document.createElement("a-image"); 
-     img_node.setAttribute("scale", "0.5 0.25 0.5"); 
-    img_node.setAttribute("color", "black"); 
-    img_node.setAttribute("side", "double"); 
-    img_node.setAttribute("position", `0 0.25 0.01`); 
-    img_node.setAttribute("src", `${left_side[i].src}`);
-    node.appendChild(img_node);
-      back_wall.appendChild(node);
-    }
-   for(let i=0 ;i<right_side.length;i++){
-      
-      let pos=`${15-(4/2)} 0 ${(i+1)*wall_gap}`;
-
-      var node = document.createElement("a-plane");                 
-    
-    node.setAttribute("scale", "4 4 1"); 
-    node.setAttribute("color", "blue"); 
-    node.setAttribute("side", "double"); 
-    node.setAttribute("position",`${pos}`); 
-
-    var img_node= document.createElement("a-image"); 
-     img_node.setAttribute("scale", "0.5 0.25 0.5"); 
-    img_node.setAttribute("color", "black"); 
-    img_node.setAttribute("side", "double"); 
-    img_node.setAttribute("position", `0 0.25 0.01`); 
-    img_node.setAttribute("src", `${right_side[i].src}`);
-    node.appendChild(img_node);
-      back_wall.appendChild(node);
-    }
-    console.log(back_wall);
-
-            }
-           
-
-        });
-
-    
-      
-
-
+    });   
   }
 });
 
