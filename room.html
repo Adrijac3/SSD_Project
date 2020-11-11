@@ -136,6 +136,22 @@ AFRAME.registerComponent('play-pause',{
     }    
     
     }
+    
+    function loadRoom(room_no)
+    {
+      var right_wall=document.querySelector("#wall1");    
+      //var entry_wall=document.querySelector("#wall2");
+      var left_wall=document.querySelector("#wall3");
+      var back_wall=document.querySelector("#wall4");
+      // var ground=document.querySelector("#ground");
+      // var cam=document.querySelector("#camera");           
+      // var ceiling=document.querySelector("#ceiling");
+      removeAllChildNodes(back_wall);
+      //get obj
+      dividePosters(room_no);
+      createPostersOnPartition(left_side,back_wall,0);
+      createPostersOnPartition(right_side,back_wall,1);
+    }
 
   AFRAME.registerComponent('log', {
   
@@ -165,37 +181,14 @@ AFRAME.registerComponent('play-pause',{
         s=rooms["room1"].length;
         room_size=(s/2 +1)*wall_gap;
         setRoomDim(room_size);
-    //get attributes
-    var right_wall=document.querySelector("#wall1");    
-    var entry_wall=document.querySelector("#wall2");
-    var left_wall=document.querySelector("#wall3");
-    var back_wall=document.querySelector("#wall4");
-    var ground=document.querySelector("#ground");
-    var cam=document.querySelector("#camera");           
-    var ceiling=document.querySelector("#ceiling");
-    removeAllChildNodes(back_wall);
-    //get obj
-    dividePosters("room1");
-    createPostersOnPartition(left_side,back_wall,0);
-    createPostersOnPartition(right_side,back_wall,1);
+        loadRoom("room1");
     }
     else if(event.key==2)
     {
         s=rooms["room2"].length;
         room_size=(s/2 +1)*wall_gap;
-        setRoomDim(room_size);  
-    var right_wall=document.querySelector("#wall1");    
-    var entry_wall=document.querySelector("#wall2");
-    var left_wall=document.querySelector("#wall3");
-    var back_wall=document.querySelector("#wall4");
-    var ground=document.querySelector("#ground");
-    var cam=document.querySelector("#camera");           
-    var ceiling=document.querySelector("#ceiling");
-    removeAllChildNodes(back_wall);
-    //get obj
-    dividePosters("room2");
-    createPostersOnPartition(left_side,back_wall,0);
-    createPostersOnPartition(right_side,back_wall,1);   
+        setRoomDim(room_size); 
+        loadRoom("room2");
     }
     });   
   }
