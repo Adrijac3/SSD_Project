@@ -61,56 +61,89 @@ AFRAME.registerComponent('play-pause',{
    
   ],
  }
-   let x=3;
-    let  s=rooms["room1"].length;
-    let  room_size=(s/2 +1)*x;
-     let A=15;
-   let B=4;
-    let left_side=rooms["room1"].filter((e)=>e.id%2==1);
-   let right_side=rooms["room1"].filter((e)=>e.id%2==0);
+  let x=3;                               //distance between two walls
+  let  s=rooms["room1"].length;        //number of posters
+  let  room_size=(s/2 +1)*x;          //how long will the room be
+  let A=15;                          //starting pos of wall coordinate   
+  let B=4;                          //room width
+  let left_side=rooms["room1"].filter((e)=>e.id%2==1);                     //getting odd posters on left and even on right
+  let right_side=rooms["room1"].filter((e)=>e.id%2==0);
 
-    function removeAllChildNodes(parent) {
-    while (parent.firstChild) {
+  //removes all posters that were added as children of back_wall  
+  function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
    }
+    
+    //sets room dimensions
+    function setRoomDim() {
+    
+    w1=document.querySelector("#wall1");
+    w1.setAttribute("position",`${A} 0 0`);
+    
+    w2=document.querySelector("#wall2");
+    w2.setAttribute("position",`${A} 0 ${room_size}`);
+    
+    w3=document.querySelector("#wall3");
+    w3.setAttribute("position",`0 0 ${room_size}`);
+    
+    w4=document.querySelector("#wall4");
+    w4.setAttribute("position","0 0 0");
+    
+    
+    floor=document.querySelector("#ground");
+    floor.setAttribute("position", `7.5 0 ${room_size/2}`);
+    floor.setAttribute("scale", `${A} ${room_size} 1`);
 
-    AFRAME.registerComponent('log', {
+    camera=document.querySelector("#camera");
+    camera.setAttribute("position", `7.5 0 ${room_size+5}`);
+   
+                   
+    roof=document.querySelector("#ceiling");
+    roof.setAttribute("position", `7.5 3 ${room_size/2}`)
+    roof.setAttribute("scale", `${A} ${room_size} 1`);
+      alert()
+      
+    }
+
+  AFRAME.registerComponent('log', {
   
-
- 
-
-  init: function () {    
+    
+    init: function () { 
+      
+    setRoomDim();
+    
     var right_wall=document.querySelector("#wall1");
-    right_wall.setAttribute("position",`15 0 0`);
+    //right_wall.object3D.position.set(`${A} 0 0`);
     
     var entry_wall=document.querySelector("#wall2");
-    entry_wall.setAttribute("position",`15 0 ${room_size}`);
+    //entry_wall.setAttribute("position",`${A} 0 ${room_size}`);
     
     var left_wall=document.querySelector("#wall3");
-    left_wall.setAttribute("position",`0 0 ${room_size}`);
+    //left_wall.setAttribute("position",`0 0 ${room_size}`);
 
 
     
     var back_wall=document.querySelector("#wall4");
-    back_wall.setAttribute("position","0 0 0");
+    //back_wall.setAttribute("position","0 0 0");
     
     
     var ground=document.querySelector("#ground");
-    ground.setAttribute("position", `7.5 0 ${room_size/2}`);
-    ground.setAttribute("scale", `15 ${room_size} 1`);
+   // ground.setAttribute("position", `7.5 0 ${room_size/2}`);
+   // ground.setAttribute("scale", `15 ${room_size} 1`);
 
       var cam=document.querySelector("#camera");
-    cam.setAttribute("position", `7.5 0 ${room_size+5}`);
+    //cam.setAttribute("position", `7.5 0 ${room_size+5}`);
    
                    
     var ceiling=document.querySelector("#ceiling");
-    ceiling.setAttribute("position", `7.5 3 ${room_size/2}`)
-    ceiling.setAttribute("scale", `15 ${room_size} 1`);
+   // ceiling.setAttribute("position", `7.5 3 ${room_size/2}`)
+   // ceiling.setAttribute("scale", `15 ${room_size} 1`);
 
+//     var right_wall,left_wall,entry_wall,back_wall,ground,celining,cam;
     
     
- 
  
    
 
