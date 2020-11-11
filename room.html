@@ -127,10 +127,10 @@ AFRAME.registerComponent('play-pause',{
     //put posters on them
      var img_node= document.createElement("a-image"); 
      img_node.setAttribute("scale", "0.5 0.25 0.5"); 
-    img_node.setAttribute("color", "black"); 
+    img_node.setAttribute("color", "white"); 
     img_node.setAttribute("side", "double"); 
     img_node.setAttribute("position", `0 0.25 0.01`); 
-    img_node.setAttribute("src", `${side[i].src}`);
+    img_node.setAttribute("src", `${side[i].link}`);
     node.appendChild(img_node);
       back_wall.appendChild(node);
     }    
