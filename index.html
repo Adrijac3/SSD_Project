@@ -1,494 +1,673 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-
-    <title>My A-Frame Scene</title>
-
-    <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
+  <title>My A-Frame Scene</title>
+    
+  <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script> 
     <script src="https://unpkg.com/aframe-room-component/dist/aframe-room-component.min.js"></script>
-    <script>
-      AFRAME.registerComponent("play-pause", {
-        init: function() {
-          var myvideo = document.querySelector("#video");
-          var videoControls = document.querySelector("#videoControls");
-          this.el.addEventListener("click", function() {
-            if (myvideo.paused) {
-              myvideo.play();
-              videoControls.setAttribute("src", "#pause");
-            } else {
-              myvideo.pause();
-              videoControls.setAttribute("src", "#play");
-            }
-          });
+    <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script>
+  
+  <script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+  <script>
+AFRAME.registerComponent('play-pause',{
+    init: function(){
+    var myvideo=document.querySelector('#video');
+    var videoControls=document.querySelector('#videoControls');
+    this.el.addEventListener('click',function(){
+        if(myvideo.paused){
+            myvideo.play();
+            videoControls.setAttribute('src','#pause');
         }
-      });
-
-      let rooms = {
-        room1: [
-          {
-            id: 1,
-            name: "poster1",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          },
-          {
-            id: 2,
-            name: "poster2",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          },
-          {
-            id: 3,
-            name: "poster3",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          },
-          {
-            id: 4,
-            name: "poster4",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          },
-          {
-            id: 5,
-            name: "poster5",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          },
-          {
-            id: 6,
-            name: "poster6",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          },
-          {
-            id: 7,
-            name: "poster7",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          },
-          {
-            id: 8,
-            name: "poster7",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          }
-        ],
-        room2: [
-          {
-            id: 1,
-            name: "poster1",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          },
-          {
-            id: 2,
-            name: "poster2",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          },
-          {
-            id: 3,
-            name: "poster3",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          },
-          {
-            id: 4,
-            name: "poster4",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          },
-          {
-            id: 5,
-            name: "poster5",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          },
-          {
-            id: 6,
-            name: "poster6",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          },
-          {
-            id: 7,
-            name: "poster7",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          },
-          {
-            id: 8,
-            name: "poster7",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          },
-          {
-            id: 9,
-            name: "poster1",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          },
-          {
-            id: 10,
-            name: "poster2",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          },
-          {
-            id: 11,
-            name: "poster3",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          },
-          {
-            id: 12,
-            name: "poster4",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          },
-          {
-            id: 13,
-            name: "poster5",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          },
-          {
-            id: 14,
-            name: "poster6",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          },
-          {
-            id: 15,
-            name: "poster7",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          },
-          {
-            id: 16,
-            name: "poster7",
-            link:
-              "https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg",
-            type: "image"
-          }
-        ]
-      };
-      let wall_gap = 3; //distance between two walls
-      let s = rooms["room1"].length; //number of posters
-      let room_size = (s / 2 + 1) * wall_gap; // length of room
-      var base_size = room_size;
-      let A = 15; // starting pos of wall coordinate
-      let B = 4; //room width
-
-      //removes all posters that were added as children of back_wall
-      function removeAllChildNodes(parent) {
-        while (parent.firstChild) {
-          parent.removeChild(parent.firstChild);
+        else{
+            myvideo.pause();
+            videoControls.setAttribute('src','#play');
         }
-      }
-
-      //sets room dimensions
-      function setRoomDim(room_size) {
-        var scalefactor = room_size / base_size;
-        w1 = document.querySelector("#wall1");
-        w1.setAttribute("position", `${A} 0 0`);
-        w1.setAttribute("scale", `${scalefactor} 1 1`);
-        w2 = document.querySelector("#wall2");
-        w2.setAttribute("position", `${A} 0 ${room_size}`);
-        w3 = document.querySelector("#wall3");
-        w3.setAttribute("scale", `${scalefactor} 1 1`);
-        w3.setAttribute("position", `0 0 ${room_size}`);
-        w4 = document.querySelector("#wall4");
-        w4.setAttribute("position", "0 0 0");
-        floor = document.querySelector("#ground");
-        floor.setAttribute("position", `7.5 0 ${room_size / 2}`);
-        floor.setAttribute("scale", `${A} ${room_size} 1`);
-        camera = document.querySelector("#camera");
-        camera.setAttribute("position", `7.5 0 ${room_size + 5}`);
-        roof = document.querySelector("#ceiling");
-        roof.setAttribute("position", `7.5 3 ${room_size / 2}`);
-        roof.setAttribute("scale", `${A} ${room_size} 1`);
-        // alert()
-      }
-
-      //divides avaliable posters into two halves
-      function dividePosters(room_no) {
-        left_side = rooms[room_no].filter(e => e.id % 2 == 1); //putting half posters in left
-        right_side = rooms[room_no].filter(e => e.id % 2 == 0); //putting half posters on right
-      }
-
-      function createPostersOnPartition(side, back_wall, f) {
-        var C;
-        if (f == 0)
-          //f==0 indicates left side
-          C = B / 2;
-        //f==1 indicates right side
-        else C = A - B / 2;
-
-        for (let i = 0; i < side.length; i++) {
-          let pos = `${C} 0 ${(i + 1) * wall_gap}`;
-          //create plartitions
-          var node = document.createElement("a-plane");
-          console.log(pos);
-          node.setAttribute("scale", "4 4 1");
-          node.setAttribute("color", "blue");
-          node.setAttribute("side", "double");
-          node.setAttribute("position", `${pos}`);
-          //put posters on them
-          var img_node = document.createElement("a-image");
-          img_node.setAttribute("scale", "0.5 0.25 0.5");
-          img_node.setAttribute("color", "white");
-          img_node.setAttribute("side", "double");
-          img_node.setAttribute("position", `0 0.25 0.01`);
-          img_node.setAttribute("src", `${side[i].link}`);
-          node.appendChild(img_node);
+    });
+    }
+  
+  
+});
+    
+    let rooms;
+fetch("https://adrijac3.github.io/test_repo/room6.json")
+.then(resp=>(resp.json()))
+.then(data=>{
+  rooms=data
+  console.log(rooms);
+ 
+  let wall_gap=3;                               //distance between two walls
+  var Lab_names=Object.keys(rooms);
+  console.log(Lab_names);
+  let  s=rooms[Lab_names[0]].length;        //number of posters
+  let  room_size=(Math.ceil(s/4) +1)*wall_gap       // length of room   
+  var base_size=room_size;
+  let A=15;                           // starting pos of wall coordinate
+  let B=4;                          //room width
+    let max_walls;
+    
+  //removes all posters that were added as children of back_wall  
+  function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+   }
+    
+    //sets room dimensions
+    function setRoomDim(room_size) {
+    var scalefactor=room_size/base_size;
+    w1=document.querySelector("#wall1");
+    w1.setAttribute("position",`${A} 0 0`);
+    w1.setAttribute("scale",`${scalefactor} 1 1`);
+    w2=document.querySelector("#wall2");
+    w2.setAttribute("position",`${A} 0 ${room_size}`);
+    w3=document.querySelector("#wall3");
+    w3.setAttribute("scale",`${scalefactor} 1 1`);
+    w3.setAttribute("position",`0 0 ${room_size}`);
+    w4=document.querySelector("#wall4");
+    w4.setAttribute("position","0 0 0");
+    floor=document.querySelector("#ground");
+    floor.setAttribute("position", `7.5 0 ${room_size/2}`);
+    floor.setAttribute("scale", `${A} ${room_size} 1`);
+    camera=document.querySelector("#camera");
+    camera.object3D.position.set(7.5, 0, room_size+5);
+    // camera.setAttribute("position",  {x:7.5, y:0, z:room_size+5});  
+      console.log("rooom size ",room_size)
+      console.log('pos-camera ',camera.getAttribute("position"));
+    roof=document.querySelector("#ceiling");
+    roof.setAttribute("position", `7.5 3 ${room_size/2}`)
+    roof.setAttribute("scale", `${A} ${room_size} 1`);
+     // alert()
+    }
+    
+    //divides avaliable posters into two halves
+    function dividePosters(room_no)
+    {
+      left_front=rooms[room_no].filter((e)=>e.id%4==1);
+      left_back=rooms[room_no].filter((e)=>e.id%4==0);
+      right_front=rooms[room_no].filter((e)=>e.id%4==2);
+      right_back=rooms[room_no].filter((e)=>e.id%4==3);
+      max_walls=Math.max(left_front.length,Math.max(left_back.length,Math.max(right_front.length,right_back.length)))
+      console.log('abc',Math.max(left_front.length,Math.max(left_back.length,Math.max(right_front.length,right_back.length))))                     //putting half posters on right
+    }
+    
+    function createPostersOnPartition(side,sideback,back_wall,f)
+    {
+      var C
+      if(f==0)             //f==0 indicates left side
+          C=B/2;
+      else                 //f==1 indicates right side
+          C=A-(B/2);
+      
+      //for front side
+      for(let i=0; i<side.length; i++){
+      
+        console.log('Max walls',max_walls);
+         var pos=`${C} 0 ${(max_walls -i)*wall_gap}`;
+      //create plartitions
+      var node = document.createElement("a-plane");                 
+      console.log(pos);
+        console.log(side[i].type === "image");
+    node.setAttribute("scale", "4 4 1"); 
+    node.setAttribute("color", "white"); 
+    node.setAttribute("side", "double"); 
+    node.setAttribute("position",`${pos}`);
+    if(f==0)
+    node.setAttribute("id", "new-left-plane"+i.toString());
+    else
+    node.setAttribute("id", "new-right-plane"+i.toString());
+    //put posters on them
+       if(side[i].type === "image"){
+         console.log("hello");
+          var img_node= document.createElement("a-image"); 
+     img_node.setAttribute("scale", "0.5 0.25 0.5"); 
+    img_node.setAttribute("color", "white"); 
+    img_node.setAttribute("side", "double"); 
+    img_node.setAttribute("position", `0 0.25 0.01`); 
+    img_node.setAttribute("rotation", `0 0 0`);
+    img_node.setAttribute("src", `${side[i].link}`);
+    node.appendChild(img_node);
           back_wall.appendChild(node);
-        }
+         
+       } else {
+          console.log("buffllo");
+         var v_node=document.createElement("a-video");
+      node.setAttribute("scale", "4 4 1"); 
+        node.setAttribute("repeat", "5 5" ); 
+          v_node.setAttribute("position", "0 0.25 0.0002"); 
+         v_node.setAttribute("src", "#video");
+         v_node.setAttribute("width","0.7");
+         v_node.setAttribute("height", "0.3");
+         var img_node= document.createElement("a-image"); 
+         img_node.setAttribute("scale", "0.05 0.04 0.05"); 
+        img_node.setAttribute("id", "videoControls"); 
+
+        img_node.setAttribute("position", "0 -0.18 0.0002"); 
+        img_node.setAttribute("play-pause","NULL");
+        img_node.setAttribute("src", "#play");
+         v_node.appendChild(img_node);
+         console.log(v_node);
+          node.appendChild(v_node);
+          back_wall.appendChild(node);
+         
+         }
       }
 
-      function loadRoom(room_no) {
-        var right_wall = document.querySelector("#wall1");
-        //var entry_wall=document.querySelector("#wall2");
-        var left_wall = document.querySelector("#wall3");
-        var back_wall = document.querySelector("#wall4");
-        // var ground=document.querySelector("#ground");
-        // var cam=document.querySelector("#camera");
-        // var ceiling=document.querySelector("#ceiling");
-        removeAllChildNodes(back_wall);
-        //get obj
-        dividePosters(room_no);
-        createPostersOnPartition(left_side, back_wall, 0);
-        createPostersOnPartition(right_side, back_wall, 1);
-      }
+     for(let i=0; i<sideback.length; i++){
+       //
+//       var pos=`${C} 0 ${(i+1)*wall_gap}`;
+// //        var node = document.createElement("a-plane");                 
+// //       console.log(pos);
+// //         console.log(side[i].type === "image");
+// //     node.setAttribute("scale", "4 4 1"); 
+// //     node.setAttribute("color", "white"); 
+// //     node.setAttribute("side", "double"); 
+// //     node.setAttribute("position",`${pos}`);
+      
+//       //put posters on them
+       if(f==0)
+    var node_plane=document.getElementById("new-left-plane"+i.toString());
+    else
+    var node_plane=document.getElementById("new-right-plane"+i.toString());
+       //var node_plane=document.getElementById("new-plane"+i.toString());
+     if(sideback[i].type=="image"){
+       var img_node2=document.createElement("a-image"); 
+         img_node2.setAttribute("scale", "0.5 0.25 0.5"); 
+     img_node2.setAttribute("color", "white"); 
+     img_node2.setAttribute("side", "double"); 
+     img_node2.setAttribute("position", `0 0.25 -0.01`); 
+     img_node2.setAttribute("rotation", `0 -180 0`);
+     img_node2.setAttribute("src", `${sideback[i].link}`);
+         node_plane.appendChild(img_node2);
+//       back_wall.appendChild(node);
+     }
+       else{
+       var v_node=document.createElement("a-video");
+      node.setAttribute("scale", "4 4 1"); 
+        node.setAttribute("repeat", "5 5" ); 
+    
+          v_node.setAttribute("position", "0 0.25 0.0002"); 
+         v_node.setAttribute("src", "#video");
+         v_node.setAttribute("width","0.7");
+         v_node.setAttribute("height", "0.3");
+         var img_node= document.createElement("a-image"); 
+     img_node.setAttribute("scale", "0.05 0.04 0.05"); 
+    img_node.setAttribute("id", "videoControls"); 
+    
+    img_node.setAttribute("position", "0 -0.18 0.0002"); 
+    img_node.setAttribute("play-pause","NULL");
+    img_node.setAttribute("src", "#play");
+      console.log(v_node);
+        v_node.appendChild(img_node);
+         node_plane.appendChild(v_node);
+       back_wall.appendChild(node);
+     }
+     
+     }   
+  }    
+    
+    function loadRoom(room_no)
+    {
+      var right_wall=document.querySelector("#wall1");    
+      //var entry_wall=document.querySelector("#wall2");
+      var left_wall=document.querySelector("#wall3");
+      var back_wall=document.querySelector("#wall4");
+      // var ground=document.querySelector("#ground");
+      // var cam=document.querySelector("#camera");           
+      // var ceiling=document.querySelector("#ceiling");
+      removeAllChildNodes(back_wall);
+      //get obj
+      dividePosters(room_no);
+      createPostersOnPartition(left_front,left_back,back_wall,0);
+      createPostersOnPartition(right_front,right_back,back_wall,1);
+    }
 
-      AFRAME.registerComponent("log", {
-        init: function() {
-          setRoomDim(room_size);
-          //get attributes
-          var menu = document.querySelector("#intro");
-          menu.setAttribute("position", `-1.5 0.5 ${room_size + 2}`);
-          var right_wall = document.querySelector("#wall1");
-          var entry_wall = document.querySelector("#wall2");
-          var left_wall = document.querySelector("#wall3");
-          var back_wall = document.querySelector("#wall4");
-          var ground = document.querySelector("#ground");
-          var cam = document.querySelector("#camera");
-          var ceiling = document.querySelector("#ceiling");
-          //get obj
-          dividePosters("room1");
-
-          createPostersOnPartition(left_side, back_wall, 0);
-          createPostersOnPartition(right_side, back_wall, 1);
-          //console.log(back_wall);
-          var Image_Id = document.getElementById("Lab1");
-          Image_Id.addEventListener("click", function() {
-            s = rooms["room1"].length;
-            room_size = (s / 2 + 1) * wall_gap;
-            menu.setAttribute("position", `-1.5 0.5 ${room_size + 2}`);
-            setRoomDim(room_size);
-            loadRoom("room1");
-          });
-          var Image_Id = document.getElementById("Lab2");
-          Image_Id.addEventListener("click", function() {
-            s = rooms["room2"].length;
-            room_size = (s / 2 + 1) * wall_gap;
-            menu.setAttribute("position", `-1.5 0.5 ${room_size + 2}`);
-            setRoomDim(room_size);
-            loadRoom("room2");
-          });
-        }
+    console.log(Lab_names);
+  AFRAME.registerComponent('log', {
+  
+    //
+    init: function () { 
+      
+    setRoomDim(room_size);
+    //get attributes
+    var menu=document.querySelector("#intro1");
+    menu.setAttribute("position",`-1.5 0.5 ${room_size+2}`)
+    var menu1=document.querySelector("#menu");
+     menu1.setAttribute("position",`3.5 1 ${room_size+0.01}`)
+    //var Lab_name=Object.keys(rooms); 
+    //var right_wall=document.querySelector("#wall1");    
+    //var entry_wall=document.querySelector("#wall2");
+    //var left_wall=document.querySelector("#wall3");
+    var back_wall=document.querySelector("#wall4");
+    //var ground=document.querySelector("#ground");
+    //var cam=document.querySelector("#camera");           
+    //var ceiling=document.querySelector("#ceiling");
+    //get obj
+    dividePosters(Lab_names[0]);
+  
+    createPostersOnPartition(left_front,left_back,back_wall,0);
+    createPostersOnPartition(right_front,right_back,back_wall,1);
+    //console.log(back_wall);  
+    var Image_Id = document.getElementById('room1');
+    Image_Id.addEventListener('click',function(){
+        s=rooms[Lab_names[0]].length;
+        room_size=(Math.ceil(s/4) +1)*wall_gap;
+       var labname=Lab_names[0];
+        menu1.setAttribute("text",{value:"Welcome to\n"+labname});
+        menu.setAttribute("position",`-1.5 0.5 ${room_size+2}`);
+        menu1.setAttribute("position",`3.5 1 ${room_size+0.01}`);
+        setRoomDim(room_size);
+        loadRoom(Lab_names[0]);
+    });
+    var Image_Id = document.getElementById('room2');
+    Image_Id.addEventListener('click',function(){
+        s=rooms[Lab_names[1]].length;
+        room_size=(Math.ceil(s/4) +1)*wall_gap;
+       var labname=Lab_names[1];
+        menu1.setAttribute("text",{value:"Welcome to\n"+labname});
+        menu.setAttribute("position",`-1.5 0.5 ${room_size+2}`);
+        menu1.setAttribute("position",`3.5 1 ${room_size+0.01}`);
+        setRoomDim(room_size); 
+        loadRoom(Lab_names[1]);
+    });
+    var Image_Id = document.getElementById('room3');
+    Image_Id.addEventListener('click',function(){
+        s=rooms[Lab_names[2]].length;
+        room_size=(Math.ceil(s/4) +1)*wall_gap;
+       var labname=Lab_names[2];
+        menu1.setAttribute("text",{value:"Welcome to\n"+labname});
+        menu.setAttribute("position",`-1.5 0.5 ${room_size+2}`);
+        menu1.setAttribute("position",`3.5 1 ${room_size+0.01}`);
+        setRoomDim(room_size); 
+        loadRoom(Lab_names[2]);
+    });
+    var Image_Id = document.getElementById('room4');
+    Image_Id.addEventListener('click',function(){
+        s=rooms[Lab_names[3]].length;
+        room_size=(Math.ceil(s/4) +1)*wall_gap;
+       var labname=Lab_names[3];
+        menu1.setAttribute("text",{value:"Welcome to\n"+labname});
+        menu.setAttribute("position",`-1.5 0.5 ${room_size+2}`);
+        menu1.setAttribute("position",`3.5 1 ${room_size+0.01}`);
+        setRoomDim(room_size); 
+        loadRoom(Lab_names[3]);
+    });
+    var Image_Id = document.getElementById('room5');
+    Image_Id.addEventListener('click',function(){
+        s=rooms[Lab_names[4]].length;
+        room_size=(Math.ceil(s/4) +1)*wall_gap;
+       var labname=Lab_names[4];
+        menu1.setAttribute("text",{value:"Welcome to\n"+labname});
+        menu.setAttribute("position",`-1.5 0.5 ${room_size+2}`);
+        menu1.setAttribute("position",`3.5 1 ${room_size+0.01}`);
+        setRoomDim(room_size); 
+        loadRoom(Lab_names[4]);
+    });
+    var Image_Id = document.getElementById('room6');
+    Image_Id.addEventListener('click',function(){
+        s=rooms[Lab_names[5]].length;
+        room_size=(Math.ceil(s/4) +1)*wall_gap;
+       var labname=Lab_names[5];
+        menu1.setAttribute("text",{value:"Welcome to\n"+labname});
+        menu.setAttribute("position",`-1.5 0.5 ${room_size+2}`);
+        menu1.setAttribute("position",`3.5 1 ${room_size+0.01}`);
+        setRoomDim(room_size); 
+        loadRoom(Lab_names[5]);
+    });
+    var Image_Id = document.getElementById('room7');
+    Image_Id.addEventListener('click',function(){
+        s=rooms[Lab_names[6]].length;
+        room_size=(Math.ceil(s/4)+1)*wall_gap;
+       var labname=Lab_names[6];
+        menu1.setAttribute("text",{value:"Welcome to\n"+labname});
+        menu.setAttribute("position",`-1.5 0.5 ${room_size+2}`);
+        menu1.setAttribute("position",`3.5 1 ${room_size+0.01}`);
+        setRoomDim(room_size); 
+        loadRoom(Lab_names[6]);
+        log.console("hii");
+    });
+    var Image_Id = document.getElementById('room8');
+    Image_Id.addEventListener('click',function(){
+        s=rooms[Lab_names[7]].length;
+        room_size=(Math.ceil(s/4)+1)*wall_gap;
+       var labname=Lab_names[7];
+        menu1.setAttribute("text",{value:"Welcome to\n"+labname});
+        menu.setAttribute("position",`-1.5 0.5 ${room_size+2}`);
+        menu1.setAttribute("position",`3.5 1 ${room_size+0.01}`);
+        setRoomDim(room_size); 
+        loadRoom(Lab_names[7]);
+        log.console("hii");
+    });
+    var Image_Id = document.getElementById('room9');
+    Image_Id.addEventListener('click',function(){
+        s=rooms[Lab_names[8]].length;
+        room_size=(Math.ceil(s/4)+1)*wall_gap;
+       var labname=Lab_names[8];
+        menu1.setAttribute("text",{value:"Welcome to\n"+labname});
+        menu.setAttribute("position",`-1.5 0.5 ${room_size+2}`);
+        menu1.setAttribute("position",`3.5 1 ${room_size+0.01}`);
+        setRoomDim(room_size); 
+        loadRoom(Lab_names[8]);
+        log.console("hii");
+    });
+    var Image_Id = document.getElementById('room10');
+    Image_Id.addEventListener('click',function(){
+        s=rooms[Lab_names[9]].length;
+        room_size=(Math.ceil(s/4)+1)*wall_gap;
+       var labname=Lab_names[9];
+        menu1.setAttribute("text",{value:"Welcome to\n"+labname});
+        menu.setAttribute("position",`-1.5 0.5 ${room_size+2}`);
+        menu1.setAttribute("position",`3.5 1 ${room_size+0.01}`);
+        setRoomDim(room_size); 
+        loadRoom(Lab_names[9]);
+        log.console("hii");
+    });
+    var Image_Id = document.getElementById('room11');
+    Image_Id.addEventListener('click',function(){
+        s=rooms[Lab_names[10]].length;
+        room_size=(Math.ceil(s/4) +1)*wall_gap;
+       var labname=Lab_names[10];
+        menu1.setAttribute("text",{value:"Welcome to\n"+labname});
+        menu.setAttribute("position",`-1.5 0.5 ${room_size+2}`);
+        menu1.setAttribute("position",`3.5 1 ${room_size+0.01}`);
+        setRoomDim(room_size);
+        loadRoom(Lab_names[10]);
+    });
+    var Image_Id = document.getElementById('room12');
+    Image_Id.addEventListener('click',function(){
+        s=rooms[Lab_names[11]].length;
+        room_size=(Math.ceil(s/4) +1)*wall_gap;
+       var labname=Lab_names[11];
+        menu1.setAttribute("text",{value:"Welcome to\n"+labname});
+        menu.setAttribute("position",`-1.5 0.5 ${room_size+2}`);
+        menu1.setAttribute("position",`3.5 1 ${room_size+0.01}`);
+        setRoomDim(room_size); 
+        loadRoom(Lab_names[11]);
+    });
+    var Image_Id = document.getElementById('room13');
+    Image_Id.addEventListener('click',function(){
+        s=rooms[Lab_names[12]].length;
+        room_size=(Math.ceil(s/4) +1)*wall_gap;
+       var labname=Lab_names[12];
+        menu1.setAttribute("text",{value:"Welcome to\n"+labname});
+        menu.setAttribute("position",`-1.5 0.5 ${room_size+2}`);
+        menu1.setAttribute("position",`3.5 1 ${room_size+0.01}`);
+        setRoomDim(room_size); 
+        loadRoom(Lab_names[12]);
+    });
+    var Image_Id = document.getElementById('room14');
+    Image_Id.addEventListener('click',function(){
+        s=rooms[Lab_names[13]].length;
+        room_size=(Math.ceil(s/4) +1)*wall_gap;
+       var labname=Lab_names[13];
+        menu1.setAttribute("text",{value:"Welcome to\n"+labname});
+        menu.setAttribute("position",`-1.5 0.5 ${room_size+2}`);
+        menu1.setAttribute("position",`3.5 1 ${room_size+0.01}`);
+        setRoomDim(room_size); 
+        loadRoom(Lab_names[13]);
+    });
+    var Image_Id = document.getElementById('room15');
+    Image_Id.addEventListener('click',function(){
+        s=rooms[Lab_names[14]].length;
+        room_size=(Math.ceil(s/4) +1)*wall_gap;
+       var labname=Lab_names[14];
+        menu1.setAttribute("text",{value:"Welcome to\n"+labname});
+        menu.setAttribute("position",`-1.5 0.5 ${room_size+2}`);
+        menu1.setAttribute("position",`3.5 1 ${room_size+0.01}`);
+        setRoomDim(room_size); 
+        loadRoom(Lab_names[14]);
+    });
+    var Image_Id = document.getElementById('room16');
+    Image_Id.addEventListener('click',function(){
+        s=rooms[Lab_names[15]].length;
+        room_size=(Math.ceil(s/4) +1)*wall_gap;
+       var labname=Lab_names[15];
+        menu1.setAttribute("text",{value:"Welcome to\n"+labname});
+        menu.setAttribute("position",`-1.5 0.5 ${room_size+2}`);
+        menu1.setAttribute("position",`3.5 1 ${room_size+0.01}`);
+        setRoomDim(room_size); 
+        loadRoom(Lab_names[15]);
+    });
+    var Image_Id = document.getElementById('room17');
+    Image_Id.addEventListener('click',function(){
+        s=rooms[Lab_names[16]].length;
+        room_size=(Math.ceil(s/4)+1)*wall_gap;
+       var labname=Lab_names[17];
+        menu1.setAttribute("text",{value:"Welcome to\n"+labname});
+        menu.setAttribute("position",`-1.5 0.5 ${room_size+2}`);
+        menu1.setAttribute("position",`3.5 1 ${room_size+0.01}`);
+        setRoomDim(room_size); 
+        loadRoom(Lab_names[16]);
+        log.console("hii");
+    });
+    var Image_Id = document.getElementById('room18');
+    Image_Id.addEventListener('click',function(){
+        s=rooms[Lab_names[17]].length;
+        room_size=(Math.ceil(s/4)+1)*wall_gap;
+       var labname=Lab_names[18];
+        menu1.setAttribute("text",{value:"Welcome to\n"+labname});
+        menu.setAttribute("position",`-1.5 0.5 ${room_size+2}`);
+        menu1.setAttribute("position",`3.5 1 ${room_size+0.01}`);
+        setRoomDim(room_size); 
+        loadRoom(Lab_names[17]);
+        log.console("hii");
+    });
+    var Image_Id = document.getElementById('room19');
+    Image_Id.addEventListener('click',function(){
+        s=rooms[Lab_names[18]].length;
+        room_size=(Math.ceil(s/4)+1)*wall_gap;
+       var labname=Lab_names[18];
+        menu1.setAttribute("text",{value:"Welcome to\n"+labname});
+        menu.setAttribute("position",`-1.5 0.5 ${room_size+2}`);
+        menu1.setAttribute("position",`3.5 1 ${room_size+0.01}`);
+        setRoomDim(room_size); 
+        loadRoom(Lab_names[18]);
+        log.console("hii");
+    });
+    var Image_Id = document.getElementById('room20');
+    Image_Id.addEventListener('click',function(){
+        s=rooms[Lab_names[19]].length;
+        room_size=(Math.ceil(s/4)+1)*wall_gap;
+      var labname=Lab_names[19];
+        menu.setAttribute("position",`-1.5 0.5 ${room_size+2}`);
+        menu1.setAttribute("position",`3.5 1 ${room_size+0.01}`);
+        setRoomDim(room_size); 
+        loadRoom(Lab_names[19]);
+        log.console("hii");
+    });
+      //var dom1,dom2,dom3 = "";
+      
+      //console.log(Object.keys(rooms).length);
+      var no_of_labs=Object.keys(rooms).length;
+      
+     // var n=Math.ceil(no_of_labs/6);
+     // console.log(n);
+      //var pre=[],next=[],cur=[];
+      //var n1=0,i;
+      //var labs=[]
+      
+        //for(i=0;i<Math.min(6,no_of_labs);i++) cur.push('#room'+(i+1).toString());
+        //for(i=0;i<Math.min(6,no_of_labs-6);i++) next.push('#room'+(i+7).toString());
+        //console.log(cur);
+        //console.log(next);
+        //var xx=$('room7');
+        $(document).ready(function(){
+        
+      $('#menu').click(function(){
+        $('#intro1').attr("visible","true");
+        //$('#menu').attr("visible","false");
+        for(i=no_of_labs+1;i<=20;i++) {
+            var lab_id='#room'+(i).toString();
+            ($(lab_id).detach());
+            //console.log(lab_id);
+          }
       });
-    </script>
-  </head>
+      
+  /*    $('#next').click(function(){
+        if(next.length){
+          var x;
+          //$('#Lab1').detach();
+          for (x in next) //$(cur[x]).replaceWith('room7');
+          {($("#intro1")).append(next[x]);console.log(next[x]);}
+          for (x in cur) $(cur[x]).detach();
+          pre=cur.slice();
+          cur=next.slice();
+          //console.log(pre);
+          next=[];
+          var last=cur[cur.length-1];
+          last=parseInt(last.slice(3),10);
+          //console.log(cur);
+          if(last!=no_of_labs)
+            for(i=0;i<Math.min(6,no_of_labs-6);i++) next.push('#room'+(i+last+1).toString());
+          
+          
+            
+          console.log("neha");
+        }
+        //$("#intro1").append($(xx));
+      });
 
-  <body>
+      $('#prev').click(function(){
+        if(pre.length){
+        console.log("prev");
+        next=cur.slice();
+        cur=pre.slice();
+        pre=[];
+        var first=cur[0];
+        first=parseInt(first.slice[3],10);
+        if(first!=1)
+          for(i=first-6;i<first;i++) pre.push('#room'+(i).toString());
+        for (x in next) $(next[x]).detach();
+        for (x in cur) $("#intro1").append($(cur[x]));
+        }
+      });*/
+          
+    });
+      
+  }
+});
+
+
+}
+      
+     )
+    
+
+
+</script>
+</head>
+ 
+<body>
     <a-scene log>
       <a-assets>
-        <img
-          id="floor"
-          src="https://cdn.glitch.com/cf2a8cb8-6e05-4433-812a-5cfca8c74467%2Ftiles.jpg?v=1604133526182"
-        />
-        <!--   added textures -->
-        <img
-          crossorigin="anonymous"
-          id="groundTexture"
-          src="https://cdn.aframe.io/a-painter/images/floor.jpg"
-        />
-        <img
-          crossorigin="anonymous"
-          id="skyTexture"
-          src="https://cdn.aframe.io/a-painter/images/sky.jpg"
-        />
-        <img
-          id="play"
-          src="https://cdn.glitch.com/d8347771-677b-419e-ae51-8aab08e7794b%2Fplay.png?v=1604122004528"
-        />
-        <img
-          id="pause"
-          src="https://cdn.glitch.com/d8347771-677b-419e-ae51-8aab08e7794b%2Fpause.png?v=1604122008185"
-        />
-        <img
-          id="researchlab1"
-          src="https://cdn.glitch.com/cf2a8cb8-6e05-4433-812a-5cfca8c74467%2Fresearchlab.jpg?v=1605109986808"
-        />
-        <img
-          id="researchlab2"
-          src="https://cdn.glitch.com/cf2a8cb8-6e05-4433-812a-5cfca8c74467%2Fresearchlab2.jpg?v=1605110045487"
-        />
-        <video
-          id="video"
-          loop="false"
-          src="https://cdn.glitch.com/d8347771-677b-419e-ae51-8aab08e7794b%2FVideo.mp4?v=1604121772168"
-          webkit-playsinline
-        ></video>
+        <img id="floor" src="https://cdn.glitch.com/cf2a8cb8-6e05-4433-812a-5cfca8c74467%2Ftiles.jpg?v=1604133526182">
+      <!--   added textures -->
+         <img crossorigin="anonymous" id="groundTexture" src="https://cdn.glitch.com/cf2a8cb8-6e05-4433-812a-5cfca8c74467%2Ffloor.jpg?v=1605961684778">
+       <img crossorigin="anonymous" id="skyTexture" src="https://cdn.glitch.com/cf2a8cb8-6e05-4433-812a-5cfca8c74467%2Fsky2.png?v=1605962043517">
+       <img id="play" src="https://cdn.glitch.com/d8347771-677b-419e-ae51-8aab08e7794b%2Fplay.png?v=1604122004528">
+        <img id="pause" src="https://cdn.glitch.com/d8347771-677b-419e-ae51-8aab08e7794b%2Fpause.png?v=1604122008185">
+        <img id="researchlab1" src="https://cdn.glitch.com/cf2a8cb8-6e05-4433-812a-5cfca8c74467%2FSERC_lab.png?v=1605978432047">
+        <img id="researchlab2" src="https://cdn.glitch.com/cf2a8cb8-6e05-4433-812a-5cfca8c74467%2Fresearchlab2.jpg?v=1605110045487">
+        <img id="ceiling_img" src="https://cdn.glitch.com/cf2a8cb8-6e05-4433-812a-5cfca8c74467%2Fceiling.png?v=1605967336342">
+        <video id="video" loop="false" src="https://cdn.glitch.com/d8347771-677b-419e-ae51-8aab08e7794b%2FVideo.mp4?v=1604121772168" webkit-playsinline></video>
       </a-assets>
-      <a-sky
-        height="2048"
-        radius="100"
-        src="#skyTexture"
-        theta-length="90"
-        width="2048"
-        segments-height="5"
-        segments-width="8"
-      ></a-sky>
-      <a-plane
-        src="#groundTexture"
-        rotation="-90 0 0"
-        position="0 -0.01 0"
-        height="500"
-        width="500"
-      ></a-plane>
-      <!-- ground-->
-      <a-plane
-        color="#FFFFFF"
-        src="#floor"
-        repeat="20 20"
-        rotation="-90 0 0"
-        id="ground"
-      >
-      </a-plane>
+       <a-sky height="2048" radius="1000" src="#skyTexture" theta-length="90" width="2048" segments-height="5" segments-width="8"></a-sky>
+      <a-plane src="#groundTexture" rotation="-90 0 0" position="0 -0.01 0" repeat="1000 1000" height="1000" width="1000"></a-plane>
+     <!-- ground-->
+      <a-plane color= "#FFFFFF"
+             src= "#floor"
+             repeat="20 20"
+             rotation="-90 0 0" id="ground">
+    </a-plane>
 
-      <!--Ceiling-->
-      <a-plane
-        color="#FFFFFF"
-        side="double"
-        repeat="20 20"
-        rotation="-90 0 0"
-        id="ceiling"
-      >
+ 
+
+   <!--Ceiling-->
+    <a-plane color= "#FFFFFF"                   
+             side="double"
+             src="#ceiling_img"
+             repeat="20 20"
+             rotation="-90 0 0" id="ceiling">
+    </a-plane>
+      <a-plane class="plane" height="0.5" scale="3.5 10 0" color="#5d4261" side="double" position="-1.5 1.5 17" rotation="0 45 0" id="intro1" visible="false">
+        <a-image id="room1" scale="0.17 0.06 0.15" color="#FFFFFF" src="https://cdn.glitch.com/9f00edee-2827-4669-902c-8424ce31c9d2%2FSERC.png?v=1605977952937" position="-0.38 0.2 0.11"></a-image> 
+        <a-image id="room2" scale="0.17 0.06 0.15" color="#FFFFFF" src="https://cdn.glitch.com/9f00edee-2827-4669-902c-8424ce31c9d2%2FCOGSI.png?v=1605978305296" position="-0.19 0.2 0.11"> </a-image> 
+        <a-image id="room3" scale="0.17 0.06 0.15" color="#FFFFFF" src="https://cdn.glitch.com/9f00edee-2827-4669-902c-8424ce31c9d2%2FCVIT.png?v=1605978084124" position="0 0.2 0.11"> </a-image>
+        <a-image id="room4" scale="0.17 0.06 0.15" color="#FFFFFF" src="https://cdn.glitch.com/9f00edee-2827-4669-902c-8424ce31c9d2%2FRRC.png?v=1605978304183" position="0.19 0.2 0.11"></a-image>
+        <a-image id="room5" scale="0.17 0.06 0.15" color="#FFFFFF" src="https://cdn.glitch.com/9f00edee-2827-4669-902c-8424ce31c9d2%2FSPCRC.png?v=1605978722802" position="0.38 0.2 0.11"> </a-image> 
+        <a-image id="room6" scale="0.17 0.06 0.15" color="#FFFFFF" src="https://cdn.glitch.com/9f00edee-2827-4669-902c-8424ce31c9d2%2FCSG.png?v=1605978726558" position="-0.38 0.13 0.11"></a-image> 
+        <a-image id="room7" scale="0.17 0.06 0.15" color="#FFFFFF" src="https://cdn.glitch.com/9f00edee-2827-4669-902c-8424ce31c9d2%2FLTRC.png?v=1605978723894" position="-0.19 0.13 0.11"> </a-image> 
+        <a-image id="room8" scale="0.17 0.06 0.15" color="#FFFFFF" src="https://cdn.glitch.com/9f00edee-2827-4669-902c-8424ce31c9d2%2FDSAC.png?v=1605978851095" position="0 0.13 0.11"> </a-image>
+        <a-image id="room9" scale="0.17 0.06 0.15" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="0.19 0.13 0.11"></a-image>
+        <a-image id="room10" scale="0.17 0.06 0.15" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="0.38 0.13 0.11"> </a-image> 
+        <a-image id="room11" scale="0.17 0.06 0.15" color="#FFFFFF" src="#researchlab2" position="-0.38 0.06 0.11"></a-image> 
+        <a-image id="room12" scale="0.17 0.06 0.15" color="#FFFFFF" src="#researchlab2" position="-0.19 0.06 0.11"> </a-image> 
+        <a-image id="room13" scale="0.17 0.06 0.15" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="0 0.06 0.11"> </a-image>
+        <a-image id="room14" scale="0.17 0.06 0.15" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="0.19 0.06 0.11"></a-image>
+        <a-image id="room15" scale="0.17 0.06 0.15" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="0.38 0.06 0.11"> </a-image> 
+        <a-image id="room16" scale="0.17 0.06 0.15" color="#FFFFFF" src="#researchlab1" position="-0.38 -0.01 0.11"></a-image> 
+        <a-image id="room17" scale="0.17 0.06 0.15" color="#FFFFFF" src="#researchlab2" position="-0.19 -0.01 0.11"> </a-image> 
+        <a-image id="room18" scale="0.17 0.06 0.15" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="0 -0.01 0.11"> </a-image>
+        <a-image id="room19" scale="0.17 0.06 0.15" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="0.19 -0.01 0.11"></a-image>
+        <a-image id="room20" scale="0.17 0.06 0.15" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="0.38 -0.01 0.11"> </a-image> 
+        <!-- </a-plane>
+      <a-plane height="0.5" scale="3.5 10 0" color="#17202a" side="double" position="-1.5 0.5 17" rotation="0 45 0" id="intro2" visible="false">-->
+   <!--     <a-image id="room7" scale="0.25 0.10 0.25" color="#FFFFFF" src="#researchlab2" position="-0.3 0.17 1" ></a-image> 
+        <a-image id="room8" scale="0.25 0.10 0.25" color="#FFFFFF" src="#researchlab1" position="0 0.17 1" > </a-image> 
+        <a-image id="room9" scale="0.25 0.10 0.25" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="0.3 0.17 0.11" > </a-image>
+        <a-image id="room10" scale="0.25 0.10 0.25" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="-0.3 0.02 0.11" ></a-image>
+        <a-image id="room11" scale="0.25 0.10 0.25" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="0 0.02 0.11" > </a-image> 
+        <a-image id="room12" scale="0.25 0.10 0.25" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="0.3 0.02 0.11" > </a-image>
+        
+        <a-image id="next" scale="0.03 0.03 0.03" color="#FFFFFF" src="#play" position="0.45 0.095 1"></a-image>
+        <a-image id="prev" scale="0.03 0.03 0.03" color="#FFFFFF" src="#play" rotation="0 0 180" position="-0.45 0.095 1"></a-image>  
+       <!-- <a-image id="next1" scale="0.04 0.04 0.04" color="#FFFFFF" src="#play" position="0.45 0.095 1"></a-image>
+        <a-image id="prev1" scale="0.04 0.04 0.04" color="#FFFFFF" src="#play" rotation="0 0 180" position="-0.45 0.095 1"></a-image>   -->   
       </a-plane>
-      <a-plane
-        height="0.5"
-        scale="3.5 10 0"
-        color="#17202a"
-        side="double"
-        position="-1.5 0.5 17"
-        rotation="0 45 0"
-        id="intro"
-      >
-        <a-image
-          id="Lab1"
-          scale="0.25 0.10 0.25"
-          color="#FFFFFF"
-          src="#researchlab1"
-          position="-0.3 0.17 1"
-        ></a-image>
-        <a-image
-          id="Lab2"
-          scale="0.25 0.10 0.25"
-          color="#FFFFFF"
-          src="#researchlab2"
-          position="0 0.17 1"
-        >
-        </a-image>
-        <a-image
-          id="Lab3"
-          scale="0.25 0.10 0.25"
-          color="#FFFFFF"
-          src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg"
-          position="0.3 0.17 0.11"
-        >
-        </a-image>
-        <a-image
-          id="Lab4"
-          scale="0.25 0.10 0.25"
-          color="#FFFFFF"
-          src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg"
-          position="-0.3 0.02 0.11"
-        ></a-image>
-        <a-image
-          id="Lab5"
-          scale="0.25 0.10 0.25"
-          color="#FFFFFF"
-          src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg"
-          position="0 0.02 0.11"
-        >
-        </a-image>
-        <a-image
-          id="Lab6"
-          scale="0.25 0.10 0.25"
-          color="#FFFFFF"
-          src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg"
-          position="0.3 0.02 0.11"
-        >
-        </a-image>
-      </a-plane>
-      <rw-room
-        position="0 0 0"
-        material="color:#edbe8e;side:double"
-        id="room-whole"
-      >
-        <!--right wall-->
-        <rw-wall height="3" side="double" id="wall1">
-          <!--               <a-plane scale="1 1 1" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="14 1 0.01">
+      
+     <a-entity id="menu" position="2.4 1.5 15.01" scale="1.5 1.5 1.5"
+               text="value: IIIT\nR&D\nSHOWCASE;
+               color::#2b7c97;
+               align:center;
+              font: https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/belleza/Belleza-Regular.json;
+                shader:msdf;
+               wrapCount:15"
+               geometry="primitive: plane; width: auto: height: auto" 
+               material="color:#4b530e; shader:flat"
+               event-set__enter="_event: mouseenter; text.color:#212121"
+               event-set__leave="_event: mouseleave; text.color:#FF0000">
+                                 
+         </a-entity>
+        <rw-room position="0 0 0" material="color: #edbe8e;side:double"  id ="room-whole">
+            <!--right wall-->
+            <rw-wall height="3" side="double" id="wall1">
+<!--               <a-plane scale="1 1 1" color="#FFFFFF" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg" position="14 1 0.01">
                
               </a-plane> -->
-        </rw-wall>
-        <!--entry wall-->
-        <rw-wall height="3" side="double" id="wall2">
-          <rw-doorhole id="holeA"></rw-doorhole>
-          <rw-doorlink
-            from="#holeA"
-            to="#holeA"
-            position="10 0 0"
-          ></rw-doorlink>
-        </rw-wall>
-        <!--left wall-->
-        <rw-wall height="3" side="double" id="wall3">
+          </rw-wall>
+          <!--entry wall-->
+            <rw-wall height="3" side="double" id="wall2">
+              <rw-doorhole id="holeA"></rw-doorhole>
+              <rw-doorlink from="#holeA" to="#holeA" position="10 0 0"></rw-doorlink>
+            </rw-wall>
+          <!--left wall-->
+            <rw-wall height="3" side="double" id="wall3">
           <!--back wall-->
-        </rw-wall>
-        <rw-wall height="3" side="double" id="wall4" log="hiiii i am wall 4">
-        </rw-wall>
-      </rw-room>
+            </rw-wall>
+            <rw-wall height="3" side="double" id ="wall4" log="hiiii i am wall 4">
+             
+            </rw-wall>
+        </rw-room>
 
-      <a-entity id="camera" position="3 0 45">
-        <a-camera user-height="1.6"><a-cursor></a-cursor></a-camera>
-      </a-entity>
+    <a-entity id ="camera" position="3 0 45">
+
+      <a-camera user-height="1.6"><a-cursor></a-cursor></a-camera>
+    </a-entity>
     </a-scene>
-  </body>
+</body>
 </html>
