@@ -114,7 +114,7 @@ fetch("https://adrijac3.github.io/test_repo/room6.json")
       console.log(pos);
         console.log(side[i].type === "image");
     node.setAttribute("scale", "4 4 1"); 
-    node.setAttribute("color", "white"); 
+    node.setAttribute("color", "#88abb4"); 
     node.setAttribute("side", "double"); 
     node.setAttribute("position",`${pos}`);
     if(f==0)
@@ -125,10 +125,10 @@ fetch("https://adrijac3.github.io/test_repo/room6.json")
        if(side[i].type === "image"){
          console.log("hello");
           var img_node= document.createElement("a-image"); 
-     img_node.setAttribute("scale", "0.5 0.25 0.5"); 
+     img_node.setAttribute("scale", "0.7 0.35 0.5"); 
     img_node.setAttribute("color", "white"); 
     img_node.setAttribute("side", "double"); 
-    img_node.setAttribute("position", `0 0.25 0.01`); 
+    img_node.setAttribute("position", `0 0.30 0.01`); 
     img_node.setAttribute("rotation", `0 0 0`);
     img_node.setAttribute("src", `${side[i].link}`);
     node.appendChild(img_node);
@@ -177,10 +177,10 @@ fetch("https://adrijac3.github.io/test_repo/room6.json")
        //var node_plane=document.getElementById("new-plane"+i.toString());
      if(sideback[i].type=="image"){
        var img_node2=document.createElement("a-image"); 
-         img_node2.setAttribute("scale", "0.5 0.25 0.5"); 
+         img_node2.setAttribute("scale", "0.7 0.35 0.5"); 
      img_node2.setAttribute("color", "white"); 
      img_node2.setAttribute("side", "double"); 
-     img_node2.setAttribute("position", `0 0.25 -0.01`); 
+     img_node2.setAttribute("position", `0 0.30 -0.01`); 
      img_node2.setAttribute("rotation", `0 -180 0`);
      img_node2.setAttribute("src", `${sideback[i].link}`);
          node_plane.appendChild(img_node2);
@@ -531,7 +531,6 @@ fetch("https://adrijac3.github.io/test_repo/room6.json")
         }
         //$("#intro1").append($(xx));
       });
-
       $('#prev').click(function(){
         if(pre.length){
         console.log("prev");
@@ -577,7 +576,7 @@ fetch("https://adrijac3.github.io/test_repo/room6.json")
         <video id="video" loop="false" src="https://cdn.glitch.com/d8347771-677b-419e-ae51-8aab08e7794b%2FVideo.mp4?v=1604121772168" webkit-playsinline></video>
       </a-assets>
        <a-sky height="2048" radius="1000" src="#skyTexture" theta-length="90" width="2048" segments-height="5" segments-width="8"></a-sky>
-      <a-plane src="#groundTexture" rotation="-90 0 0" position="0 -0.01 0" repeat="1000 1000" height="1000" width="1000"></a-plane>
+      <a-plane src="#groundTexture" rotation="-90 0 0" position="0 -0.02 0" repeat="1000 1000" height="1000" width="1000"></a-plane>
      <!-- ground-->
       <a-plane color= "#FFFFFF"
              src= "#floor"
@@ -631,16 +630,16 @@ fetch("https://adrijac3.github.io/test_repo/room6.json")
       </a-plane>
       
      <a-entity id="menu" position="2.4 1.5 15.01" scale="1.5 1.5 1.5"
-               text="value: IIIT\nR&D\nSHOWCASE;
+               text="value: \nIIIT\nR&D\nSHOWCASE\n\nCLICK HERE;
                color::#2b7c97;
                align:center;
               font: https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/belleza/Belleza-Regular.json;
                 shader:msdf;
                wrapCount:15"
                geometry="primitive: plane; width: auto: height: auto" 
-               material="color:#4b530e; shader:flat"
+               material="color:#5c7796; shader:flat"
                event-set__enter="_event: mouseenter; text.color:#212121"
-               event-set__leave="_event: mouseleave; text.color:#FF0000">
+               event-set__leave="_event: mouseleave; text.color:#0000FF">
                                  
          </a-entity>
         <rw-room position="0 0 0" material="color: #edbe8e;side:double"  id ="room-whole">
